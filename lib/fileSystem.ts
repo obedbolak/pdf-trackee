@@ -1,6 +1,6 @@
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system/legacy";
 
-const PDF_DIR = FileSystem.documentDirectory + 'pdfs/';
+const PDF_DIR = FileSystem.documentDirectory + "pdfs/";
 
 export async function ensurePdfDir(): Promise<void> {
   const info = await FileSystem.getInfoAsync(PDF_DIR);
@@ -11,7 +11,7 @@ export async function ensurePdfDir(): Promise<void> {
 
 export async function copyPdfToStorage(
   sourceUri: string,
-  fileName: string
+  fileName: string,
 ): Promise<string> {
   await ensurePdfDir();
   const dest = PDF_DIR + fileName;
@@ -27,6 +27,6 @@ export async function deletePdf(uri: string): Promise<void> {
 }
 
 export async function getPdfFileSize(uri: string): Promise<number | undefined> {
-  const info = await FileSystem.getInfoAsync(uri, { size: true });
-  return info.exists && 'size' in info ? info.size : undefined;
+  const info = await FileSystem.getInfoAsync(uri);
+  return info.exists && "size" in info ? info.size : undefined;
 }
